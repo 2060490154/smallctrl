@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/res">
+        <file>titleclose.png</file>
+        <file>titlemax.png</file>
+        <file>titlemenu.png</file>
+        <file>titlemini.png</file>
+        <file>topwidgetui.qss</file>
+    </qresource>
+</RCC>

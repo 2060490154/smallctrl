@@ -1,0 +1,8 @@
+﻿QWidget#topwidget{
+background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(42,65,109, 255), stop:1 rgba(45, 68, 112, 255));
+}
+
+
+QWidget#topwidget>QPushButton{border:0px solid #FF0000;}
+QWidget#topwidget>QPushButton:hover{background:#067DB8;}
+QWidget#topwidget>QPushButton:pressed{background:#067DB8;}

@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/energypng">
+        <file alias="connect.png">image/ok.png</file>
+        <file alias="disconnect.png">image/disconnect.png</file>
+    </qresource>
+</RCC>

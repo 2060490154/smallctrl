@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DevConfig>
+    <KxCCD Name="科学CCD">
+        <Item Port="4120" Name="近场CCD" Index="0" DevIP="192.168.1.100"/>
+    </KxCCD>
+    <OSCII Name="示波器">
+        <Item Port="" Name="波形测量示波器" Index="0" DevIP="192.168.1.104">
+            <ChannelItem ChannelName="脉冲波形通道" ChannelNo="1"/>
+        </Item>
+    </OSCII>
+    <SHUTTER Name="光闸">
+        <Item Port="24" Name="1064nm光路光闸" Index="0" DevIP="192.168.1.102"/>
+        <Item Port="23" Name="355nm光路光闸" Index="1" DevIP="192.168.1.101"/>
+        <Item Port="25" Name="载物台光闸" Index="2" DevIP="192.168.1.103"/>
+    </SHUTTER>
+    <ENERGYMETER Name="能量计">
+        <Item Port="" Name="能量计" Index="0" DevIP="COM10">
+            <ChannelItem Coeff="1" ChannelName="主能量计" ChannelNo="0"/>
+            <ChannelItem Coeff="1" ChannelName="监视能量计" ChannelNo="1"/>
+        </Item>
+    </ENERGYMETER>
+    <MOTOR Name="运动部件">
+        <Item Port="" Name="运动部件" Index="0" DevIP="">
+            <ChannelItem Unit="mm" Coeff="1000.0" ChannelName="载物台水平轴" GearIndex="" GearName="" ChannelNo="0"/>
+            <ChannelItem Unit="mm" Coeff="1000.0" ChannelName="载物台垂直轴" GearIndex="" GearName="" ChannelNo="1"/>
+            <ChannelItem Unit="度" Coeff="2400.0" ChannelName="载物台旋转轴" GearIndex="" GearName="" ChannelNo="2"/>
+            <ChannelItem Coeff="1.0" ChannelName="衰减轮盘" GearIndex="0|1|2|3|4|5" GearName="透过0%|透过40%|透过30%|透过10%|透过5%|透过1%" ChannelNo="3"/>
+            <ChannelItem Unit="mm" Coeff="1.0" ChannelName="光路切换" GearIndex="0|1" GearName="355nm|1064nm" ChannelNo="4"/>
+            <ChannelItem Unit="mm" Coeff="1.0" ChannelName="汇聚透镜" GearIndex="0|1" GearName="355nm|1064nm" ChannelNo="5"/>
+        </Item>
+    </MOTOR>
+    <ENERGYADJDEV Name="能量调节">
+        <Item Port="6001" Name="1064nm能量调节" Index="0" DevIP="192.168.1.56"/>
+        <Item Port="6000" Name="355nm能量调节" Index="1" DevIP="192.168.1.55"/>
+    </ENERGYADJDEV>
+    <DEFECTCHECKSYS Name="损伤检测系统">
+        <Item Port="6101" Name="损伤检测系统" Index="0" DevIP="192.168.1.110"/>
+    </DEFECTCHECKSYS>
+    <BEAMPRO Name="光斑分析仪">
+<Item Port="" Name="光斑品质分析仪" Index="0" DevIP=""/>
+</BEAMPRO>
+</DevConfig>

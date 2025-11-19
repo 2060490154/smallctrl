@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/qss">
+        <file>workflowui.qss</file>
+    </qresource>
+</RCC>

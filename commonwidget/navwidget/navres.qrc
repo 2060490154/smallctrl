@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/navres">
+        <file>navui.qss</file>
+    </qresource>
+</RCC>

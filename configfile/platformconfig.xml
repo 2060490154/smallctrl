@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PlatformConfig>
+    <!--0-1064nm 1-355nm!-->
+    <Status WaveLengthType="1"/>
+    <!--光路参数!-->
+    <LaserParam M="2.00199" Area="0.018295" pluswidth="1.28543e-8" WaveLengthType="0" Name="1064nm" Coeff_k="32.3727"/>
+    <LaserParam M="1" Area="2" pluswidth="11.17" WaveLengthType="1" Name="355nm" Coeff_k="29.7303"/>
+    <Motor MotorctrlIndex="0" ChannelIndex="3">
+        <Item GrearIndex="2" MinEnergy="0" MaxEnergy="100.0"/>
+        <Item GrearIndex="2" MinEnergy="101" MaxEnergy="200.0"/>
+        <Item GrearIndex="2" MinEnergy="200" MaxEnergy="300.0"/>
+        <Item GrearIndex="2" MinEnergy="300" MaxEnergy="500.0"/>
+    </Motor>
+</PlatformConfig>

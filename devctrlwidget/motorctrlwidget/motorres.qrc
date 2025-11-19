@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/motorpng">
+        <file alias="left.png">image/left.png</file>
+        <file alias="right.png">image/right.png</file>
+        <file alias="stop.png">image/stop.png</file>
+        <file alias="limit.png">image/disconnect.png</file>
+        <file alias="ok.png">image/ok.png</file>
+        <file alias="zero.png">image/zero.png</file>
+        <file alias="start.png">image/start.png</file>
+    </qresource>
+</RCC>

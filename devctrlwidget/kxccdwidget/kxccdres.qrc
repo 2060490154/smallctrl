@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/qss"/>
+    <qresource prefix="/png">
+        <file alias="chart.png">png/chart.png</file>
+        <file alias="connect.png">png/connect.png</file>
+        <file alias="disconnect.png">png/disconnect.png</file>
+        <file alias="start.png">png/start.png</file>
+        <file alias="stop.png">png/stop.png</file>
+        <file alias="query.png">png/query.png</file>
+        <file alias="set.png">png/set.png</file>
+        <file alias="search.png">png/search.png</file>
+        <file alias="checked.png">png/checked.png</file>
+        <file alias="unchecked.png">png/unchecked.png</file>
+    </qresource>
+</RCC>
