@@ -36,7 +36,4 @@
     <DEFECTCHECKSYS Name="损伤检测系统">
         <Item Port="6101" Name="损伤检测系统" Index="0" DevIP="192.168.1.110"/>
     </DEFECTCHECKSYS>
-    <BEAMPRO Name="光斑分析仪">
-<Item Port="" Name="光斑品质分析仪" Index="0" DevIP=""/>
-</BEAMPRO>
 </DevConfig>

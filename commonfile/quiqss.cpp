@@ -8,7 +8,7 @@
  * ************************/
 
 
-QUIQss::QUIQss()
+; QUIQss::QUIQss()
 {
 
 }

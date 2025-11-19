@@ -1,0 +1,539 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3AF26E38-D942-3022-A6BA-1FF7BC924DDB}</ProjectGuid>
+    <RootNamespace>SmallBorePlatformCtrlApp</RootNamespace>
+    <Keyword>QtVS_v304</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.26100.0</WindowsTargetPlatformMinVersion>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' or !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\..\bin\SmallBorePlatformCtrlApp\release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>SmallBorePlatformCtrlApp</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <PlatformToolset>v141</PlatformToolset>
+    <OutputDirectory>..\..\bin\SmallBorePlatformCtrlApp\debug\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>SmallBorePlatformCtrlApp</PrimaryOutput>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>..\..\bin\SmallBorePlatformCtrlApp\debug\</OutDir>
+    <IntDir>debug\</IntDir>
+    <TargetName>SmallBorePlatformCtrlApp</TargetName>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>..\..\bin\SmallBorePlatformCtrlApp\release\</OutDir>
+    <IntDir>release\</IntDir>
+    <TargetName>SmallBorePlatformCtrlApp</TargetName>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>5.12.12_msvc2017_64</QtInstall>
+    <QtModules>core;xml;sql;network;gui;axcontainer;widgets;serialport;printsupport;concurrent</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>5.12.11_msvc2017_64</QtInstall>
+    <QtModules>core;xml;sql;network;gui;axcontainer;widgets;serialport;printsupport;concurrent</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;devctrl;subdevctrl;devctrl\subdevctrl;devctrl\subdevctrl\kxccdctrl;devctrl\subdevctrl\oscidevctrl;devctrl\subdevctrl\shutterdevctrl;devctrl\subdevctrl\energydevctrl;devctrl\subdevctrl\motordevctrl;devctrl\subdevctrl\energyadjustdevctrl;devctrl\subdevctrl\defectchecksysctrl;devctrlmanager;devctrl\devctrlmanager;commonfile;./workflowctrl;workflowprocess;workflowwidget;commonwidget;navwidget;commonwidget\navwidget;processbar;commonwidget\processbar;topwidget;commonwidget\topwidget;imagelabel;commonwidget\imagelabel;logwidget;commonwidget\logwidget;devconfig;devctrlwidget;kxccdwidget;devctrlwidget\kxccdwidget;devctrlwidget\kxccdwidget\kxccdwidget;devctrlwidget\kxccdwidget\kxccdmulitctrlwidget;oscictrlwidget;devctrlwidget\oscictrlwidget;shutterctrlwidget;devctrlwidget\shutterctrlwidget;energydevctrlwidget;devctrlwidget\energydevctrlwidget;motorctrlwidget;devctrlwidget\motorctrlwidget;energyadjdevctrlwidget;devctrlwidget\energyadjdevctrlwidget;dbprocess;offlinedatashowwidget;./paltformworkwidget;platformworkwidget;reportwidget;opencv\include;opencv\include\opencv2;release;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MESSAGELOGCONTEXT;RUN_ON_MSVC;QT_NO_DEBUG;QT_AXCONTAINER_LIB;QT_AXBASE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>.\devctrl\subdevctrl\motordevctrl\MCC4DLL.lib;"C:\Program Files (x86)\Windows Kits\10\lib\10.0.26100.0\um\x64\DbgHelp.lib";.\opencv\lib\opencv_world412.lib;.\opencv\lib\opencv_highgui412.lib;.\opencv\lib\opencv_imgproc412.lib;.\opencv\lib\opencv_imgcodecs412.lib;ole32.lib;oleaut32.lib;user32.lib;gdi32.lib;advapi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\devctrl\subdevctrl\motordevctrl;.\opencv\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/debug /opt:ref "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>true</GenerateMapFile>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\SmallBorePlatformCtrlApp.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MESSAGELOGCONTEXT;RUN_ON_MSVC;QT_NO_DEBUG;QT_AXCONTAINER_LIB;QT_AXBASE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>./$(Configuration)/moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(Configuration)</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtRcc>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <Compression>default</Compression>
+      <QtRccDir>$(Configuration)</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(ProjectDir)</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;devctrl;subdevctrl;devctrl\subdevctrl;devctrl\subdevctrl\kxccdctrl;devctrl\subdevctrl\oscidevctrl;devctrl\subdevctrl\shutterdevctrl;devctrl\subdevctrl\energydevctrl;devctrl\subdevctrl\motordevctrl;devctrl\subdevctrl\energyadjustdevctrl;devctrl\subdevctrl\defectchecksysctrl;devctrlmanager;devctrl\devctrlmanager;commonfile;./workflowctrl;workflowprocess;workflowwidget;commonwidget;navwidget;commonwidget\navwidget;processbar;commonwidget\processbar;topwidget;commonwidget\topwidget;imagelabel;commonwidget\imagelabel;logwidget;commonwidget\logwidget;devconfig;devctrlwidget;kxccdwidget;devctrlwidget\kxccdwidget;devctrlwidget\kxccdwidget\kxccdwidget;devctrlwidget\kxccdwidget\kxccdmulitctrlwidget;oscictrlwidget;devctrlwidget\oscictrlwidget;shutterctrlwidget;devctrlwidget\shutterctrlwidget;energydevctrlwidget;devctrlwidget\energydevctrlwidget;motorctrlwidget;devctrlwidget\motorctrlwidget;energyadjdevctrlwidget;devctrlwidget\energyadjdevctrlwidget;dbprocess;offlinedatashowwidget;./paltformworkwidget;platformworkwidget;reportwidget;opencv\include;opencv\include\opencv2;debug;/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MESSAGELOGCONTEXT;RUN_ON_MSVC;QT_AXCONTAINER_LIB;QT_AXBASE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>.\devctrl\subdevctrl\motordevctrl\MCC4DLL.lib;"C:\Program Files (x86)\Windows Kits\10\lib\10.0.26100.0\um\x64\DbgHelp.lib";.\opencv\lib\opencv_highgui412d.lib;.\opencv\lib\opencv_imgproc412d.lib;.\opencv\lib\opencv_imgcodecs412d.lib;.\opencv\lib\opencv_world412d.lib;ole32.lib;oleaut32.lib;user32.lib;gdi32.lib;advapi32.lib;shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\devctrl\subdevctrl\motordevctrl;.\opencv\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;C:\openssl\lib;C:\Utils\my_sql\mysql-5.6.11-winx64\lib;C:\Utils\postgresql\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\SmallBorePlatformCtrlApp.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_DEPRECATED_WARNINGS;QT_MESSAGELOGCONTEXT;RUN_ON_MSVC;QT_AXCONTAINER_LIB;QT_AXBASE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <QtMoc>
+      <CompilerFlavor>msvc</CompilerFlavor>
+      <Include>./$(Configuration)/moc_predefs.h</Include>
+      <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
+      <DynamicSource>output</DynamicSource>
+      <QtMocDir>$(Configuration)</QtMocDir>
+      <QtMocFileName>moc_%(Filename).cpp</QtMocFileName>
+    </QtMoc>
+    <QtUic>
+      <ExecutionDescription>Uic'ing %(Identity)...</ExecutionDescription>
+      <QtUicDir>$(ProjectDir)</QtUicDir>
+      <QtUicFileName>ui_%(Filename).h</QtUicFileName>
+    </QtUic>
+    <QtRcc>
+      <Compression>default</Compression>
+      <ExecutionDescription>Rcc'ing %(Identity)...</ExecutionDescription>
+      <QtRccDir>$(Configuration)</QtRccDir>
+      <QtRccFileName>qrc_%(Filename).cpp</QtRccFileName>
+    </QtRcc>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="devctrl\subdevctrl\oscidevctrl\activedsolib.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\autosaveimagewidget.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdmulitctrlwidget\customlabel.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\customsliderwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\energyadjustdevctrl\customtcpserver.cpp" />
+    <ClCompile Include="dbprocess\dbbase.cpp" />
+    <ClCompile Include="dbprocess\dbdataprocess.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.cpp" />
+    <ClCompile Include="platformworkwidget\defectMeasurewidget.cpp" />
+    <ClCompile Include="offlinedatashowwidget\defectcheckimagewidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\defectchecksysctrl\defectchecksysctrl.cpp" />
+    <ClCompile Include="offlinedatashowwidget\defectdatawidget.cpp" />
+    <ClCompile Include="devconfig\devconfig.cpp" />
+    <ClCompile Include="devconfig\devconfigwidget.cpp" />
+    <ClCompile Include="devctrl\devctrlmanager\devctrlmanager.cpp" />
+    <ClCompile Include="devctrlwidget\energyadjdevctrlwidget\energyadjdevwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\energyadjustdevctrl\energyadjustdevctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\energydevctrl\energydevctrl.cpp" />
+    <ClCompile Include="devctrlwidget\energydevctrlwidget\energydevctrlwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\kxccdctrl\higimage.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\kxccdctrl\kxccdctrl.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\kxccdctrlwidget.cpp" />
+    <ClCompile Include="platformworkwidget\lightparamwidget.cpp" />
+    <ClCompile Include="commonwidget\logwidget\logwidget.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
+    <ClCompile Include="offlinedatashowwidget\measureareadatawidget.cpp" />
+    <ClCompile Include="platformworkwidget\measureprereadywidget.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\measurewidget.cpp" />
+    <ClCompile Include="platformworkwidget\monitenergycoeffwidget.cpp" />
+    <ClCompile Include="platformworkwidget\monitkxccdimgwidget.cpp" />
+    <ClCompile Include="devctrlwidget\motorctrlwidget\motorctrlwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\motordevctrl\motordevctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\motordevctrl\motordevctrlbasic.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdmulitctrlwidget\mulitctrlwidget.cpp" />
+    <ClCompile Include="offlinedatashowwidget\offlinedatawidget.cpp" />
+    <ClCompile Include="devctrlwidget\oscictrlwidget\oscictrlwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\oscidevctrl\oscidevctrl.cpp" />
+    <ClCompile Include="platformworkwidget\paramwidget.cpp" />
+    <ClCompile Include="platformworkwidget\platformconfig.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformdataprocessctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformdefectcheckctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformenergyadjdevctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformenergydevctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformkxccdctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformmotordevctrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformoscictrl.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\platformshutterctrl.cpp" />
+    <ClCompile Include="platformworkwidget\pointareawidget.cpp" />
+    <ClCompile Include="commonfile\qcustomplot.cpp" />
+    <ClCompile Include="commonwidget\imagelabel\qimageexpandwidget.cpp" />
+    <ClCompile Include="commonwidget\imagelabel\qimagelabel.cpp" />
+    <ClCompile Include="reportwidget\qmsword.cpp" />
+    <ClCompile Include="commonwidget\navwidget\qnavwidget.cpp" />
+    <ClCompile Include="commonfile\quiqss.cpp" />
+    <ClCompile Include="reportwidget\reportwidget.cpp" />
+    <ClCompile Include="offlinedatashowwidget\reslutprocesswidget.cpp" />
+    <ClCompile Include="commonwidget\processbar\ringsprogressbar.cpp" />
+    <ClCompile Include="workflowprocess\runtaskthread.cpp" />
+    <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\searchdevwidget.cpp" />
+    <ClCompile Include="devctrlwidget\shutterctrlwidget\shutterctrlwidget.cpp" />
+    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutterdevctrl.cpp" />
+    <ClCompile Include="offlinedatashowwidget\systemdatawidget.cpp" />
+    <ClCompile Include="workflowprocess\taskinfo.cpp" />
+    <ClCompile Include="commonwidget\topwidget\topwidget.cpp" />
+    <ClCompile Include="workflowprocess\workflow.cpp" />
+    <ClCompile Include="workflowwidget\workflowdetailwidget.cpp" />
+    <ClCompile Include="workflowprocess\workflowprocessthread.cpp" />
+    <ClCompile Include="workflowwidget\workflowwidget.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="devctrl\subdevctrl\motordevctrl\LTDMC.h" />
+    <ClInclude Include="devctrl\subdevctrl\oscidevctrl\activedsolib.h" />
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\autosaveimagewidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdmulitctrlwidget\customlabel.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\customsliderwidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\energyadjustdevctrl\customtcpserver.h">
+    </QtMoc>
+    <ClInclude Include="dbprocess\dbbase.h" />
+    <QtMoc Include="dbprocess\dbdataprocess.h">
+    </QtMoc>
+    <ClInclude Include="dbprocess\dbdefine.h" />
+    <QtMoc Include="platformworkwidget\defectMeasurewidget.h">
+    </QtMoc>
+    <QtMoc Include="offlinedatashowwidget\defectcheckimagewidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\defectchecksysctrl\defectchecksysctrl.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\defectchecksysctrl\defectchecksysdefine.h" />
+    <QtMoc Include="offlinedatashowwidget\defectdatawidget.h">
+    </QtMoc>
+    <QtMoc Include="devconfig\devconfig.h">
+    </QtMoc>
+    <QtMoc Include="devconfig\devconfigwidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\devctrlmanager\devctrlmanager.h">
+    </QtMoc>
+    <ClInclude Include="devconfig\devdefine.h" />
+    <QtMoc Include="devctrlwidget\energyadjdevctrlwidget\energyadjdevwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrlwidget\energyadjdevctrlwidget\energyadjdevwidgetdefine.h" />
+    <ClInclude Include="devctrl\subdevctrl\energyadjustdevctrl\energyadjustdefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\energyadjustdevctrl\energyadjustdevctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\energydevctrl\energydevctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\energydevctrlwidget\energydevctrlwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\energydevctrl\energydevdefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\ishutterbackend.h" />
+    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.h" />
+    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.h" />
+    <ClInclude Include="reportwidget\expinfodefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\kxccdctrl\higimage.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\kxccdctrl\kxccdctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\kxccdctrlwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\kxccdctrl\kxccddefine.h" />
+    <QtMoc Include="platformworkwidget\lightparamwidget.h">
+    </QtMoc>
+    <QtMoc Include="commonwidget\logwidget\logwidget.h">
+    </QtMoc>
+    <QtMoc Include="mainwindow.h">
+    </QtMoc>
+    <QtMoc Include="offlinedatashowwidget\measureareadatawidget.h">
+    </QtMoc>
+    <QtMoc Include="platformworkwidget\measureprereadywidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\measurewidget.h">
+    </QtMoc>
+    <QtMoc Include="platformworkwidget\monitenergycoeffwidget.h">
+    </QtMoc>
+    <QtMoc Include="platformworkwidget\monitkxccdimgwidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\motorctrlwidget\motorctrlwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrlwidget\motorctrlwidget\motorctrlwidgetdefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\motordevctrl\motordevctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\motordevctrl\motordevctrlbasic.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\motordevctrl\motordevdefine.h" />
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdmulitctrlwidget\mulitctrlwidget.h">
+    </QtMoc>
+    <QtMoc Include="offlinedatashowwidget\offlinedatawidget.h">
+    </QtMoc>
+    <QtMoc Include="devctrlwidget\oscictrlwidget\oscictrlwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\oscidevctrl\oscidefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\oscidevctrl\oscidevctrl.h">
+    </QtMoc>
+    <QtMoc Include="platformworkwidget\paramwidget.h">
+    </QtMoc>
+    <QtMoc Include="platformworkwidget\platformconfig.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformdataprocessctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformdefectcheckctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformenergyadjdevctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformenergydevctrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformkxccdctrl.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\platformmotordevctrl.h" />
+    <QtMoc Include="devctrl\subdevctrl\platformoscictrl.h">
+    </QtMoc>
+    <QtMoc Include="devctrl\subdevctrl\platformshutterctrl.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\platformtaskdefine.h" />
+    <QtMoc Include="platformworkwidget\pointareawidget.h">
+    </QtMoc>
+    <QtMoc Include="commonfile\qcustomplot.h">
+    </QtMoc>
+    <QtMoc Include="commonwidget\imagelabel\qimageexpandwidget.h">
+    </QtMoc>
+    <QtMoc Include="commonwidget\imagelabel\qimagelabel.h">
+    </QtMoc>
+    <QtMoc Include="reportwidget\qmsword.h">
+    </QtMoc>
+    <QtMoc Include="commonwidget\navwidget\qnavwidget.h">
+    </QtMoc>
+    <ClInclude Include="commonfile\quiqss.h" />
+    <QtMoc Include="reportwidget\reportwidget.h">
+    </QtMoc>
+    <QtMoc Include="offlinedatashowwidget\reslutprocesswidget.h">
+    </QtMoc>
+    <QtMoc Include="commonwidget\processbar\ringsprogressbar.h">
+    </QtMoc>
+    <ClInclude Include="workflowprocess\runtaskthread.h" />
+    <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\searchdevwidget.h">
+    </QtMoc>
+    <ClInclude Include="setdebugnew.h" />
+    <QtMoc Include="devctrlwidget\shutterctrlwidget\shutterctrlwidget.h">
+    </QtMoc>
+    <ClInclude Include="devctrl\subdevctrl\shutterdevctrl\shutterdefine.h" />
+    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutterdevctrl.h">
+    </QtMoc>
+    <QtMoc Include="offlinedatashowwidget\systemdatawidget.h">
+    </QtMoc>
+    <ClInclude Include="workflowprocess\taskinfo.h" />
+    <QtMoc Include="commonwidget\topwidget\topwidget.h">
+    </QtMoc>
+    <ClInclude Include="workflowprocess\workflow.h" />
+    <ClInclude Include="workflowprocess\workflowdefine.h" />
+    <QtMoc Include="workflowwidget\workflowdetailwidget.h">
+    </QtMoc>
+    <QtMoc Include="workflowprocess\workflowprocessthread.h">
+    </QtMoc>
+    <QtMoc Include="workflowwidget\workflowwidget.h">
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -Zi -MDd -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_predefs.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -O2 -Zi -MD -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="mainwindow.ui">
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\png\appicon.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\chart.png" />
+    <None Include="resource\png\chart.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\checked.png" />
+    <None Include="resource\png\checked.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\connect.png" />
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\disconnect.png" />
+    <None Include="devctrlwidget\energydevctrlwidget\image\disconnect.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\disconnect.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\disconnect.png" />
+    <None Include="resource\png\disconnect.png" />
+    <None Include="resource\png\down.png" />
+    <None Include="resource\png\down_arrow.png" />
+    <QtRcc Include="devctrlwidget\energyadjdevctrlwidget\energyadjres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">energyadjres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">energyadjres</InitFuncName>
+    </QtRcc>
+    <QtRcc Include="devctrlwidget\energydevctrlwidget\energydev.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">energydev</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">energydev</InitFuncName>
+    </QtRcc>
+    <QtRcc Include="devctrlwidget\kxccdwidget\kxccdres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">kxccdres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">kxccdres</InitFuncName>
+    </QtRcc>
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\left.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\left.png" />
+    <None Include="resource\png\left.png" />
+    <QtRcc Include="devctrlwidget\motorctrlwidget\motorres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">motorres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">motorres</InitFuncName>
+    </QtRcc>
+    <QtRcc Include="commonwidget\navwidget\navres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">navres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">navres</InitFuncName>
+    </QtRcc>
+    <None Include="commonwidget\navwidget\navui.qss" />
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\ok.png" />
+    <None Include="devctrlwidget\energydevctrlwidget\image\ok.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\ok.png" />
+    <None Include="resource\png\ok.png" />
+    <None Include="resource\png\openfile.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\query.png" />
+    <QtRcc Include="resource\res.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">res</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">res</InitFuncName>
+    </QtRcc>
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\right.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\right.png" />
+    <None Include="resource\png\right.png" />
+    <None Include="resource\png\running.png" />
+    <None Include="resource\png\saveas.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\search.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\set.png" />
+    <None Include="resource\png\set.png" />
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\start.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\start.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\start.png" />
+    <None Include="resource\png\start.png" />
+    <None Include="resource\png\status_ok.png" />
+    <None Include="resource\png\staus_fail.png" />
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\stop.png" />
+    <None Include="devctrlwidget\kxccdwidget\png\stop.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\stop.png" />
+    <None Include="resource\png\stop.png" />
+    <None Include="commonwidget\topwidget\resource\titleclose.png" />
+    <None Include="commonwidget\topwidget\resource\titlemax.png" />
+    <None Include="commonwidget\topwidget\resource\titlemenu.png" />
+    <None Include="commonwidget\topwidget\resource\titlemini.png" />
+    <QtRcc Include="commonwidget\topwidget\resource\topres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">topres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">topres</InitFuncName>
+    </QtRcc>
+    <None Include="commonwidget\topwidget\resource\topwidgetui.qss" />
+    <None Include="resource\qss\ui.qss" />
+    <None Include="devctrlwidget\kxccdwidget\png\unchecked.png" />
+    <None Include="resource\png\unchecked.png" />
+    <None Include="resource\png\unrun.png" />
+    <None Include="resource\png\up.png" />
+    <QtRcc Include="workflowwidget\workflowres.qrc">
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">workflowres</InitFuncName>
+      <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">workflowres</InitFuncName>
+    </QtRcc>
+    <None Include="workflowwidget\workflowui.qss" />
+    <None Include="devctrlwidget\energyadjdevctrlwidget\image\zero.png" />
+    <None Include="devctrlwidget\motorctrlwidget\image\zero.png" />
+    <None Include="resource\png\zero.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include=".\SmallBorePlatformCtrlApp_resource.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+</Project>

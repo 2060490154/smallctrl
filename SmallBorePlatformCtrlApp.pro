@@ -61,18 +61,21 @@ include (./reportwidget/reportwidget.pri)
 
 
 SOURCES += \
+    beamprowidget.cpp \
         main.cpp \
         mainwindow.cpp \
 
 
 
 HEADERS += \
+    beamprowidget.h \
         mainwindow.h \
     setdebugnew.h \
 
 
 
 FORMS += \
+        beamprowidget.ui \
         mainwindow.ui
 
 RESOURCES += \

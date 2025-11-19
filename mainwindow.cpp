@@ -1,5 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "shutteripcbackend.h"
 #if _MSC_VER >=1600
 
 #pragma execution_character_set("utf-8")
@@ -184,6 +185,15 @@ void MainWindow::InitDevCtrl()
                 {
                     QPlatformShutterCtrl* platformShutterCtrl = new QPlatformShutterCtrl(devItem.sDevIPAddress,devItem.nPort,devItem.sDevName);
                     m_pDevCtrlManager->registerDevInfo(devInfo.devType,devItem.nIndex,bindRunTask(QPlatformShutterCtrl,platformShutterCtrl));
+                    ShutterIpcBackend* ipcBackend = new ShutterIpcBackend(this);
+                    ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "/shutter_helper.exe"); // 或完整路径
+                    ipcBackend->setLogFile(QCoreApplication::applicationDirPath() + "/shutter_client.log");
+
+                    // 注入到设备对象
+                    platformShutterCtrl->setBackend(ipcBackend);
+                    // 连接设备并设置 sessionId（moduleIndex/deviceIndex 根据你实际设备配置修改）
+                    int sid = ipcBackend->connectDevice(0, 0, 3000); // 示例 index，替换为实际值
+                    if (sid > 0)  platformShutterCtrl->setSessionId(sid);
                 }
             }
             break;
@@ -330,6 +340,20 @@ void MainWindow::InitDevCtrlWidget()
                 foreach (tDevItem devItem, devInfo.devItemlist)
                 {
                     l_shutterctrllist.push_back((QShutterDevCtrl*)m_pDevCtrlManager->getDevCtrl(M_DEV_SHUTTER,devItem.nIndex));
+                }
+
+                // 在创建设备对象后、创建 UI widget 之前注入后端（示例）
+                ShutterIpcBackend* ipcBackend = new ShutterIpcBackend(this);
+                ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "/shutter_helper.exe"); // 或 helper 的绝对路径
+                ipcBackend->setLogFile(QCoreApplication::applicationDirPath() + "/shutter_client.log");
+
+                // 假设 l_shutterctrllist 是 QList<QShutterDevCtrl*>
+                for (QShutterDevCtrl* sctrl : l_shutterctrllist) {
+                    if (sctrl) {
+                        sctrl->setBackend(ipcBackend);
+                        // 这里不自动 connectDevice，保留交互由 UI 控制。如果你想自动连接可在此调用：
+                        // int sid = ipcBackend->connectDevice(0, 0, 3000); if (sid>0) sctrl->setSessionId(sid);
+                    }
                 }
                 QShutterCtrlWidget* pShutterCtrlWidget = new QShutterCtrlWidget(l_shutterctrllist);//光闸
                 //pShutterCtrlWidget->m_sDevTypeName = devInfo.sdevTypeName;
@@ -531,7 +555,7 @@ void MainWindow::releaseDevCtrl()//释放所有的控制类
             {
                 foreach (tDevItem devItem, devInfo.devItemlist)
                 {
-                    QPlatformShutterCtrl* platformShutterCtrl = static_cast<QPlatformShutterCtrl*> (m_pDevCtrlManager->getDevCtrl(devInfo.devType,devItem.nIndex));
+                    QPlatformShutterCtrl* platformShutterCtrl = static_cast<QPlatformShutterCtrl*> (m_pDevCtrlManager->getDevCtrl(devInfo.devType, devItem.nIndex));
                     delete platformShutterCtrl;
                     platformShutterCtrl = nullptr;
                 }

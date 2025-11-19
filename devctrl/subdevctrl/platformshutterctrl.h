@@ -9,22 +9,24 @@
 
 
 
-
 class QPlatformShutterCtrl : public QShutterDevCtrl
 {
     Q_OBJECT
 public:
-    explicit QPlatformShutterCtrl(QString sIPAddress,int nPort,QString sDevName);
+    explicit QPlatformShutterCtrl(QString sIPAddress, int nPort, QString sDevName);
 
-signals:
-    void signal_devdata(int ndevtype,int ndevIndex,QVariant data);//发送的数据内容 用于其他窗口监视该数据
+    void setBackend(IShutterBackend* backend) { m_backend = backend; }
+    IShutterBackend* backend() const { return m_backend; }
 
 public slots:
 
 public:
-    bool runTask(TaskInfo *pTask,tCommonInfo* pCommonInfo=nullptr);
-
+    bool runTask(TaskInfo* pTask, tCommonInfo* pCommonInfo = nullptr);
     bool checkDevStatus();
+
+private:
+    IShutterBackend* m_backend = nullptr;
 };
+
 
 #endif // QPLATFORMSHUTTERCTRL_H

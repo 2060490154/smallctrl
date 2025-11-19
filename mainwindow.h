@@ -37,7 +37,7 @@
 #include "dbdataprocess.h"
 
 #include "devconfig.h"
-
+#include "ishutterbackend.h"
 #include "platformconfig.h"
 using namespace std;
 

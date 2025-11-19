@@ -1,0 +1,93 @@
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/mkspecs/win32-msvc
+-ID:/1101/SmallBorePlatformCtrlApp
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl
+-ID:/1101/SmallBorePlatformCtrlApp/subdevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/kxccdctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/oscidevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/shutterdevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/energydevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/motordevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/energyadjustdevctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/subdevctrl/defectchecksysctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlmanager
+-ID:/1101/SmallBorePlatformCtrlApp/devctrl/devctrlmanager
+-ID:/1101/SmallBorePlatformCtrlApp/commonfile
+-ID:/1101/SmallBorePlatformCtrlApp/commonfile
+-ID:/1101/SmallBorePlatformCtrlApp/workflowctrl
+-ID:/1101/SmallBorePlatformCtrlApp/workflowprocess
+-ID:/1101/SmallBorePlatformCtrlApp/workflowwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/navwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget/navwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/processbar
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget/processbar
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/topwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget/topwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/imagelabel
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget/imagelabel
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget
+-ID:/1101/SmallBorePlatformCtrlApp/logwidget
+-ID:/1101/SmallBorePlatformCtrlApp/commonwidget/logwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devconfig
+-ID:/1101/SmallBorePlatformCtrlApp/devconfig
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/kxccdwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/kxccdwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/kxccdwidget/kxccdwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/kxccdwidget/kxccdmulitctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/oscictrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/oscictrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/shutterctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/shutterctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/energydevctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/energydevctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/motorctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/motorctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/energyadjdevctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/devctrlwidget/energyadjdevctrlwidget
+-ID:/1101/SmallBorePlatformCtrlApp/dbprocess
+-ID:/1101/SmallBorePlatformCtrlApp/dbprocess
+-ID:/1101/SmallBorePlatformCtrlApp/offlinedatashowwidget
+-ID:/1101/SmallBorePlatformCtrlApp/offlinedatashowwidget
+-ID:/1101/SmallBorePlatformCtrlApp/paltformworkwidget
+-ID:/1101/SmallBorePlatformCtrlApp/platformworkwidget
+-ID:/1101/SmallBorePlatformCtrlApp/reportwidget
+-ID:/1101/SmallBorePlatformCtrlApp/reportwidget
+-ID:/1101/SmallBorePlatformCtrlApp/opencv/include
+-ID:/1101/SmallBorePlatformCtrlApp/opencv/include/opencv2
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/ActiveQt
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtPrintSupport
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtWidgets
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtGui
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtANGLE
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtSql
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtNetwork
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtXml
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtSerialPort
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtConcurrent
+-IC:/QT/QT5.12.12/5.12.12/MSVC2017_64/include/QtCore
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\ATLMFC\include
+-IC:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.16.27023\include
+-IC:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\shared
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\um
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\winrt
+-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\cppwinrt

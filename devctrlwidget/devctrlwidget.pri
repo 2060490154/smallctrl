@@ -15,18 +15,8 @@ include (./energydevctrlwidget/energydevctrlwidget.pri)
 INCLUDEPATH +=$$PWD motorctrlwidget
 include (./motorctrlwidget/motorctrlwidget.pri)
 
-
 INCLUDEPATH +=$$PWD energyadjdevctrlwidget
 include (./energyadjdevctrlwidget/energyadjdevctrlwidget.pri)
 
-INCLUDEPATH +=$$PWD beamprodevctrlwidget
-include (./beamprodevctrlwidget/beamprodevctrlwidget.pri)
-
-FORMS += \
-    $$PWD/sub.ui
-
-HEADERS += \
-    $$PWD/sub.h
-
-SOURCES += \
-    $$PWD/sub.cpp
+INCLUDEPATH +=$$PWD beamproctrlwidget
+include (./beamproctrlwidget/beamproctrlwidget.pri)

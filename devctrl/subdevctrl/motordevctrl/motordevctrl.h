@@ -12,12 +12,28 @@
 #include <QHash>
 #include "motordevctrlbasic.h"
 #include "motordevdefine.h"
-#include "LTDMC.h"
+//#include "LTDMC.h"
+#include "MCC4DLL.h"
 #include "platformtaskdefine.h"
 
 #define M_MOTOR_CARD 0
 #define M_MAX_WAIT_TIME (60*1000) //最大60S
 
+typedef unsigned long       DWORD;
+typedef int                 BOOL;
+typedef unsigned char       BYTE;
+typedef unsigned short      WORD;
+typedef float               FLOAT;
+
+typedef unsigned char  uint8;
+typedef signed   char  int8;
+typedef unsigned short uint16;
+typedef signed   short int16;
+typedef unsigned int   uint32;
+typedef signed   int   int32;
+typedef unsigned long long   uint64;
+typedef signed   long long   int64;
+#pragma pack(push, 1)
 typedef struct _st_motorstatus
 {
     uint16 sevoalarm:1;
@@ -28,7 +44,7 @@ typedef struct _st_motorstatus
     uint16 resv:11;
 
 }st_motorstatus;
-
+#pragma pack(pop)
 class QMotorDevCtrl : public QMotorDevCtrlBasic
 {
     Q_OBJECT
@@ -95,7 +111,7 @@ private:
 
 
 
-
+    MoCtrCard m_card;
 
 };
 
