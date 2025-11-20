@@ -48,78 +48,59 @@ QShutterDevCtrl::~QShutterDevCtrl()
     SetDevStatus(false);//保护性关闭
 }
 // 替换或插入以下函数体（确保函数签名与原文件一致）
-bool QShutterDevCtrl::SetDevStatus(bool bOPen)
+bool QShutterDevCtrl::SetDevStatus(bool bOpen)
 {
-    // 如果没有后端，不能用 IPC 控制
-    if (!m_backend) {
-        qWarning() << "QShutterDevCtrl::SetDevStatus: no backend configured";
-        return false;
-    }
+    if (!m_backend) return false;
+    if (m_sessionId <= 0) return false;
+    const int channel = 1;
+    // use longer timeout to avoid client-side retry storms
+    QJsonObject r = bOpen ? m_backend->openShutter(m_sessionId, channel, 5000)
+        : m_backend->closeShutter(m_sessionId, channel, 5000);
 
-    if (m_sessionId <= 0) {
-        qWarning() << "QShutterDevCtrl::SetDevStatus: invalid sessionId, call backend->connectDevice first";
-        return false;
-    }
-
-    // 1) 发送 open/close 命令到 helper
-    QJsonObject resp;
-    if (bOPen) {
-        resp = m_backend->openShutter(m_sessionId, 1, 3000);
-    }
-    else {
-        resp = m_backend->closeShutter(m_sessionId, 1, 3000);
-    }
-
-    if (resp.isEmpty()) {
-        qWarning() << "QShutterDevCtrl::SetDevStatus: backend returned empty response";
-        return false;
-    }
-
-    // 如果 helper 报错则返回失败
-    QString statusStr = resp.value("status").toString();
-    if (statusStr != "ok") {
-        qWarning() << "QShutterDevCtrl::SetDevStatus: helper reported error:" << resp.value("error").toString()
-            << " raw:" << QString::fromUtf8(QJsonDocument(resp).toJson(QJsonDocument::Compact));
-        return false;
-    }
-
-    // helper 返回 ok。尝试解析 payload 的 response（设备回显），若存在则记录（便于排错）
-    QString deviceEcho;
-    if (resp.contains("payload") && resp.value("payload").isObject()) {
-        QJsonObject payload = resp.value("payload").toObject();
-        if (payload.contains("response")) deviceEcho = payload.value("response").toString();
-    }
-
-    if (!deviceEcho.isEmpty()) {
-        qDebug() << "QShutterDevCtrl::SetDevStatus: device echoed:" << deviceEcho;
-        // 根据回显的内容可以更严格判断是否成功（如包含 OK/1 等）
-        QString le = deviceEcho.trimmed().toLower();
-        if (le.contains("ok") || le.contains("1") || le.contains("open")) {
-            m_tShutterDevInfo.nCurrentStatus = bOPen ? M_SHUTTER_STATUS_OPENED : M_SHUTTER_STATUS_CLOSED;
-            return true;
+    if (r.isEmpty()) {
+        qWarning() << "SetDevStatus: helper returned empty (timeout)";
+        // do NOT immediately resend repeatedly; instead try a single read to check device state
+        QJsonObject q = m_backend->readParam(m_sessionId, "status", 0, 3000);
+        if (!q.isEmpty() && q.value("status").toString() == "ok") {
+            int v = q.value("payload").toObject().value("value").toInt(-1);
+            if (v == 1) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_OPENED;
+            else if (v == 0) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_CLOSED;
+            return (bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_OPENED) ||
+                (!bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_CLOSED);
         }
-        else if (le.contains("0") || le.contains("close") || le.contains("closed")) {
-            m_tShutterDevInfo.nCurrentStatus = bOPen ? M_SHUTTER_STATUS_CLOSED : M_SHUTTER_STATUS_OPENED;
-            // 回显和期望不一致，返回 false
-            qWarning() << "QShutterDevCtrl::SetDevStatus: device echo contradicts requested state:" << deviceEcho;
+        // show diagnostic to user: helper timed out, avoid blind retry
+        qWarning() << "SetDevStatus: no response and no status confirmation; not retrying automatically.";
+        return false;
+    }
+
+    // helper returned something; if error include attempts
+    if (r.value("status").toString() != "ok") {
+        qWarning() << "SetDevStatus: helper returned error:" << r.value("error").toString();
+        // Extract attempts if present to log for debugging
+        if (r.contains("payload") && r.value("payload").isObject()) {
+            QJsonObject pl = r.value("payload").toObject();
+            qDebug() << "Helper payload attempts:" << QJsonDocument(pl).toJson(QJsonDocument::Compact);
+        }
+        return false;
+    }
+
+    // status ok: parse payload.state/value
+    if (r.contains("payload") && r.value("payload").isObject()) {
+        QJsonObject pl = r.value("payload").toObject();
+        int st = pl.value("state").toInt(pl.value("value").toInt(-1));
+        if (st == 1) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_OPENED;
+        else if (st == 0) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_CLOSED;
+        // if state unknown (-1), we treat as failure (do not optimistically accept)
+        if (st == -1) {
+            qWarning() << "SetDevStatus: helper returned ambiguous state (-1).";
             return false;
         }
-        else {
-            // 无法断言，从 helper 的 ok 判定为成功（保守处理：认为命令已发出）
-            m_tShutterDevInfo.nCurrentStatus = bOPen ? M_SHUTTER_STATUS_OPENED : M_SHUTTER_STATUS_CLOSED;
-            return true;
-        }
+        return (bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_OPENED) ||
+            (!bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_CLOSED);
     }
-    else {
-        // 没有回显（common case），但 helper 已确认接收到并返回 ok
-        // 许多硬件不会回显，不能通过 read_param("status") 检查（该参数在 SDK 中不存在）
-        // 因此以 helper 返回的 ok 为主，设置本地状态并返回成功
-        qDebug() << "QShutterDevCtrl::SetDevStatus: helper returned ok but no device echo; assuming command sent.";
-        m_tShutterDevInfo.nCurrentStatus = bOPen ? M_SHUTTER_STATUS_OPENED : M_SHUTTER_STATUS_CLOSED;
-        return true;
-    }
-}
 
+    return false;
+}
 /*******************************************************************
 **功能：获取状态
 **输入：

@@ -57,7 +57,7 @@ public:
     bool checkDevStatus();//检查是否在线
 
     bool setProcessStatus(int nPlusCnt, int nDeleay);//设置执行流程状态，并等待流程执行结束
-
+    bool parseDeviceResponseToState(const QString& queryEcho);
 
 
 

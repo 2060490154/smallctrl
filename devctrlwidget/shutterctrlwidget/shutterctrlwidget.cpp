@@ -245,23 +245,78 @@ void QShutterCtrlItemWidget::onConnectDevice()
         return;
     }
 
+    // 读取下拉项的元数据
     QVariant metaVar = m_pDeviceCombo->currentData();
-    QVariantMap meta = metaVar.toMap();
-    int mi = meta.value("moduleIndex", 0).toInt();
-    int di = meta.value("deviceIndex", 0).toInt();
-
-    appendLog(m_pLogEdit, QString("尝试连接设备 m=%1 d=%2 ...").arg(mi).arg(di));
-    int sid = _pShutterCtrl->backend()->connectDevice(mi, di, 3000);
-    if (sid <= 0) {
-        appendLog(m_pLogEdit, "连接设备失败（connectDevice 返回 <= 0）");
-        QMessageBox::warning(this, "提示", "连接光闸失败");
-        m_pDisconnectButton->setEnabled(false);
-        return;
+    // 元数据可能是 QVariantMap 或 QJsonObject 转为 QVariant
+    QVariantMap meta;
+    if (metaVar.canConvert<QVariantMap>()) {
+        meta = metaVar.toMap();
     }
-    _pShutterCtrl->setSessionId(sid);
-    appendLog(m_pLogEdit, QString("连接成功，sessionId=%1").arg(sid));
-    m_pDisconnectButton->setEnabled(true);
-    QMessageBox::information(this, "提示", "光闸已连接");
+    else {
+        // 如果保存的是 QJsonObject 转 QVariant，则先转 QJsonObject
+        QJsonObject jo;
+        if (metaVar.canConvert<QJsonObject>()) {
+            jo = metaVar.toJsonObject();
+            foreach(const QString & k, jo.keys()) meta.insert(k, jo.value(k).toVariant());
+        }
+        else {
+            // fallback: try to parse as string "m=..,d=.." (unlikely)
+        }
+    }
+
+    // Collect candidate (moduleIndex, deviceIndex) pairs to try, in preferred order:
+    // 1) moduleIndex0/deviceIndex0 (0-based if provided)
+    // 2) moduleIndex/deviceIndex (1-based)
+    // 3) as a last resort, (moduleIndex+1, deviceIndex+1) or (moduleIndex-1, deviceIndex-1)
+    struct Pair { int mi; int di; };
+    QList<Pair> candidates;
+
+    bool pushed = false;
+    if (meta.contains("moduleIndex0") || meta.contains("deviceIndex0")) {
+        int mi0 = meta.value("moduleIndex0", QVariant(0)).toInt();
+        int di0 = meta.value("deviceIndex0", QVariant(0)).toInt();
+        candidates.append({ mi0, di0 });
+        pushed = true;
+    }
+    if (meta.contains("moduleIndex") || meta.contains("deviceIndex")) {
+        int mi1 = meta.value("moduleIndex", QVariant(1)).toInt();
+        int di1 = meta.value("deviceIndex", QVariant(1)).toInt();
+        // only add if different from previous
+        bool dup = false;
+        for (auto& p : candidates) if (p.mi == mi1 && p.di == di1) dup = true;
+        if (!dup) candidates.append({ mi1, di1 });
+        pushed = true;
+    }
+
+    if (!pushed) {
+        // fallback: try common defaults
+        candidates.append({ 0, 0 });
+        candidates.append({ 1, 1 });
+    }
+
+    appendLog(m_pLogEdit, QString("尝试连接候选数=%1").arg(candidates.size()));
+
+    int sid = -1;
+    QJsonObject lastResp;
+    // try each candidate until connectDevice returns sessionId>0
+    for (const Pair& p : candidates) {
+        appendLog(m_pLogEdit, QString("尝试连接设备 m=%1 d=%2 ...").arg(p.mi).arg(p.di));
+        sid = _pShutterCtrl->backend()->connectDevice(p.mi, p.di, 3000);
+        if (sid > 0) {
+            appendLog(m_pLogEdit, QString("连接成功，sessionId=%1 (使用 m=%2 d=%3)").arg(sid).arg(p.mi).arg(p.di));
+            _pShutterCtrl->setSessionId(sid);
+            m_pDisconnectButton->setEnabled(true);
+            QMessageBox::information(this, "提示", "光闸已连接");
+            return;
+        }
+        else {
+            appendLog(m_pLogEdit, QString("connectDevice(m=%1,d=%2) 返回失败").arg(p.mi).arg(p.di));
+        }
+    }
+
+    // All candidates failed - give explicit message
+    appendLog(m_pLogEdit, "所有候选索引连接失败，请检查 SDK/驱动权限与设备实际插拔状态。");
+    QMessageBox::warning(this, "提示", "连接光闸失败（所有候选索引均失败）");
 }
 
 void QShutterCtrlItemWidget::onDisconnectDevice()

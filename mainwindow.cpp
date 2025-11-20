@@ -341,18 +341,16 @@ void MainWindow::InitDevCtrlWidget()
                 {
                     l_shutterctrllist.push_back((QShutterDevCtrl*)m_pDevCtrlManager->getDevCtrl(M_DEV_SHUTTER,devItem.nIndex));
                 }
-
-                // 在创建设备对象后、创建 UI widget 之前注入后端（示例）
                 ShutterIpcBackend* ipcBackend = new ShutterIpcBackend(this);
-                ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "/shutter_helper.exe"); // 或 helper 的绝对路径
+                // helper 可执行路径，按你实际部署调整
+                ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "C:\\Users\\Administrator\\Documents\\x86x64\\x86\\build-x86-Desktop_Qt_5_12_12_MinGW_32_bit-Debug\\x86.exe");
                 ipcBackend->setLogFile(QCoreApplication::applicationDirPath() + "/shutter_client.log");
 
-                // 假设 l_shutterctrllist 是 QList<QShutterDevCtrl*>
+                // 注入到每个 shutter 控制对象，但不要在这里强行 connectDevice（让 UI 处理并选择索引）
                 for (QShutterDevCtrl* sctrl : l_shutterctrllist) {
                     if (sctrl) {
                         sctrl->setBackend(ipcBackend);
-                        // 这里不自动 connectDevice，保留交互由 UI 控制。如果你想自动连接可在此调用：
-                        // int sid = ipcBackend->connectDevice(0, 0, 3000); if (sid>0) sctrl->setSessionId(sid);
+                        // 不自动 connect，这样 UI 可以根据 list_devices 的 moduleIndex0/deviceIndex0 让用户选择
                     }
                 }
                 QShutterCtrlWidget* pShutterCtrlWidget = new QShutterCtrlWidget(l_shutterctrllist);//光闸

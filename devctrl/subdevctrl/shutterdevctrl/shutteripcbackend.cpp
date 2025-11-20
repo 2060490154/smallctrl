@@ -20,17 +20,39 @@ QJsonArray ShutterIpcBackend::listDevices(int timeoutMs) {
     }
     return m_client.listDevices(timeoutMs);
 }
+int ShutterIpcBackend::connectDevice(int moduleIndex, int deviceIndex, int timeoutMs)
+{
+    // Build candidate index pairs (try to tolerate 0-based/1-based mismatches)
+    QList<QPair<int, int>> candidates;
+    candidates.append(qMakePair(moduleIndex, deviceIndex));
+    candidates.append(qMakePair(moduleIndex + 1, deviceIndex + 1)); // try +1 (0->1)
+    if (moduleIndex > 0 && deviceIndex > 0) candidates.append(qMakePair(moduleIndex - 1, deviceIndex - 1)); // try -1
 
-int ShutterIpcBackend::connectDevice(int moduleIndex, int deviceIndex, int timeoutMs) {
-    if (!m_client.connectToHelper(timeoutMs)) {
-        if (!m_helperPath.isEmpty() && ensureHelperRunning(2000)) {
-            if (!m_client.connectToHelper(timeoutMs)) return -1;
+    // Deduplicate candidates while preserving order
+    QList<QPair<int, int>> uniq;
+    for (const QPair<int, int>& c : candidates) {
+        bool found = false;
+        for (const QPair<int, int>& u : uniq) {
+            if (u.first == c.first && u.second == c.second) { found = true; break; }
+        }
+        if (!found) uniq.append(c);
+    }
+
+    // Try each candidate until one succeeds (connectDevice returns sessionId > 0)
+    for (const QPair<int, int>& c : uniq) {
+        qDebug() << "ShutterIpcBackend::connectDevice trying moduleIndex=" << c.first << " deviceIndex=" << c.second;
+        int sid = m_client.connectDevice(c.first, c.second, timeoutMs);
+        if (sid > 0) {
+            qDebug() << "ShutterIpcBackend::connectDevice success sessionId=" << sid << "(used m=" << c.first << " d=" << c.second << ")";
+            return sid;
         }
         else {
-            return -1;
+            qDebug() << "ShutterIpcBackend::connectDevice attempt failed for m=" << c.first << " d=" << c.second;
         }
     }
-    return m_client.connectDevice(moduleIndex, deviceIndex, timeoutMs);
+
+    qDebug() << "ShutterIpcBackend::connectDevice: all attempts failed";
+    return -1;
 }
 
 bool ShutterIpcBackend::disconnectDevice(int sessionId, int timeoutMs) {
