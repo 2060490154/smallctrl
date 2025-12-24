@@ -198,9 +198,6 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="devctrlwidget\beamanalyzerwidget\beamanalyzerwidget.cpp" />
-    <ClCompile Include="devctrl\subdevctrl\energydevctrl\energy_slink_adapter.cpp" />
-    <ClCompile Include="devctrl\subdevctrl\energydevctrl\slinkcontroller.cpp" />
     <ClCompile Include="devctrl\subdevctrl\oscidevctrl\activedsolib.cpp" />
     <ClCompile Include="devctrlwidget\kxccdwidget\kxccdwidget\autosaveimagewidget.cpp" />
     <ClCompile Include="devctrlwidget\kxccdwidget\kxccdmulitctrlwidget\customlabel.cpp" />
@@ -208,8 +205,6 @@
     <ClCompile Include="devctrl\subdevctrl\energyadjustdevctrl\customtcpserver.cpp" />
     <ClCompile Include="dbprocess\dbbase.cpp" />
     <ClCompile Include="dbprocess\dbdataprocess.cpp" />
-    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.cpp" />
-    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.cpp" />
     <ClCompile Include="platformworkwidget\defectMeasurewidget.cpp" />
     <ClCompile Include="offlinedatashowwidget\defectcheckimagewidget.cpp" />
     <ClCompile Include="devctrl\subdevctrl\defectchecksysctrl\defectchecksysctrl.cpp" />
@@ -273,9 +268,6 @@
     <ClCompile Include="workflowwidget\workflowwidget.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="devctrlwidget\beamanalyzerwidget\beamanalyzerwidget.h" />
-    <QtMoc Include="devctrl\subdevctrl\energydevctrl\energy_slink_adapter.h" />
-    <QtMoc Include="devctrl\subdevctrl\energydevctrl\slinkcontroller.h" />
     <ClInclude Include="devctrl\subdevctrl\motordevctrl\LTDMC.h" />
     <ClInclude Include="devctrl\subdevctrl\oscidevctrl\activedsolib.h" />
     <QtMoc Include="devctrlwidget\kxccdwidget\kxccdwidget\autosaveimagewidget.h">
@@ -317,9 +309,6 @@
     <QtMoc Include="devctrlwidget\energydevctrlwidget\energydevctrlwidget.h">
     </QtMoc>
     <ClInclude Include="devctrl\subdevctrl\energydevctrl\energydevdefine.h" />
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\ishutterbackend.h" />
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.h" />
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.h" />
     <ClInclude Include="reportwidget\expinfodefine.h" />
     <QtMoc Include="devctrl\subdevctrl\kxccdctrl\higimage.h">
     </QtMoc>

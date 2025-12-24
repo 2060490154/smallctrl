@@ -13,31 +13,33 @@
 #include <QStringList>
 #include <QTimer>
 #include <QThread>
-#include <QtSerialPort/QSerialPortInfo>
-#include <vector>
 
 #include "energydevctrl.h"
 
-// 设备配置结构体（确保名字与 cpp 使用一致）
+using namespace std;
+
 typedef struct _energdevconfig
 {
     QEnergyDevCtrl* pEnergyDevCtrl;
     QStringList  sChannelNamelist;
     QStringList sChannelNolist;
-} tEnergdevconfig;
+}tEnergdevconfig;
+
 
 class QEnergyDevCtrlWidget : public QWidget
 {
     Q_OBJECT
 public:
-    explicit QEnergyDevCtrlWidget(const std::vector<tEnergdevconfig>& pDevConfig, QWidget* parent = nullptr);
+    explicit QEnergyDevCtrlWidget( vector<tEnergdevconfig> pDevConfig,QWidget *parent = nullptr);
 
 signals:
 
 public slots:
 
+
 public:
-    std::vector<tEnergdevconfig> _pEnergyDevCtrllist;
+    vector<tEnergdevconfig> _pEnergyDevCtrllist;
+
 };
 
 
@@ -45,69 +47,90 @@ class QEnergyDevCtrlItemWidget : public QGroupBox
 {
     Q_OBJECT
 public:
-    explicit QEnergyDevCtrlItemWidget(QEnergyDevCtrl* pCtrl, int nPort, QString sDevName, QWidget* parent = nullptr);
+    explicit QEnergyDevCtrlItemWidget( QEnergyDevCtrl* pCtrl,int nPort,QString sDevName,QWidget *parent = nullptr);
 
 signals:
 
 public slots:
+
     void onConnectDev();//连接设备
-    void onRefreshParam();//刷新参数 (保留旧名)
+
+    void onRefreshParam();//刷新参数
+
     void onCheckMeasureValue();//查询测量值
+
     void onSetParam();//设置参数
+
+
+
     void onShowMeasureVaule();
 
-    // 对外可调用的刷新全部参数接口
-    void refreshAllParams();
-
-public:
-    void InitUI();
-    void showDevParam();
 
     void delayTime(int time);
 
+public:
+    void InitUI();
+
+    void showDevParam();
+
+
     void setWidgetStyleSheet(QWidget* pWidget);
 
+    QTimer m_showDataTimer;
+
+
+
+
+
 private:
-    QEnergyDevCtrl* _pEnergyDevCtrl;
+
+    QLabel* _pDevStatusLabel;//设备状态
+    QComboBox* _pMeasureRangeComBox;//测量范围
+    QComboBox* _pMeasureWaveLengthComBox;//测量波长范围
+    QTextEdit* _pTriggerLevelEdit;//触发门限
+    QTextEdit* _pMeasureValueEdit;//测量值
+    QComboBox* _pTriggerModeComBox;//触发模式
+
+    QPushButton* _pOpenButton;//连接设备
+    QPushButton* _pRefreshStatusButton;//刷新状态
+    QPushButton* _pSetParamButton;//参数设置
+    QPushButton* _pCheckMeasureValueButton;//查询测量值
+
+
+
+
+    QList<QString> _MeasureRangeVaulelist;//测量范围
+    QList<QString> _MeasureWaveLengthlist;//测量波长
+    int _i32MeasureRangeStartIndex;//测量范围的起始值 与每个型号相关
+
+
+
+
+
+
+//    QLabel* m_pStatus;
+//    QTextEdit* m_pSetLimitEdit;
+
+//    QTextEdit* m_psetPlusCntEdit;
+//    QTextEdit* m_psetDelayEdit;
+
+//    QLabel* m_pshowCurrentDataLabel;
+//    QPushButton* m_pOpenButton;
+//    QPushButton*m_pCloseButton;
+//    QPushButton*m_pRefreshButton;
+//    QPushButton*m_pSetLimitDataButton;
+//    QPushButton*m_psetProcessStatusButton;//设置流程模式
+
+
+
+
+private:
+    QEnergyDevCtrl*_pEnergyDevCtrl;
 
     QString _sDevName;
     int _nChannelNo;
 
     bool _bDevConnected;//设备已连接
-
-    // 新增控件成员（与 cpp 中使用的名字保持一致）
-    QComboBox* _pPortCombo;
-    QPushButton* _pPortRefreshButton;
-
-    QLabel* _pDetectorNameLabel;
-    QLabel* _pRangeLabel;
-    QLabel* _pWaveLengthLabel;
-    QLabel* _pTriggerLevelLabel;
-    QLabel* _pGainLabel;
-    QLabel* _pOffsetLabel;
-    QLabel* _pSamplingRateLabel;
-    QLabel* _pSamplingPeriodLabel;
-    QLabel* _pTotalDurationLabel;
-
-    QTextEdit* _pLogTextEdit;
-
-    // 现有控件（保持原有）
-    QComboBox* _pMeasureRangeComBox;
-    QComboBox* _pTriggerModeComBox;
-    QComboBox* _pMeasureWaveLengthComBox;
-    QLabel* _pDevStatusLabel;
-    QTextEdit* _pMeasureValueEdit;
-    QTextEdit* _pTriggerLevelEdit;
-    QPushButton* _pCheckMeasureValueButton;
-    QPushButton* _pOpenButton;
-    QPushButton* _pRefreshStatusButton;
-    QPushButton* _pSetParamButton;
-
-    QList<QString> _MeasureRangeVaulelist;
-    QList<QString> _MeasureWaveLengthlist;
-    int _i32MeasureRangeStartIndex;
-
-    QTimer m_showDataTimer;
 };
 
 #endif // QEnergyDevCtrlWidget_H

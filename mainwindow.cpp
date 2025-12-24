@@ -1,6 +1,5 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "shutteripcbackend.h"
 #if _MSC_VER >=1600
 
 #pragma execution_character_set("utf-8")
@@ -14,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent)
 
     //数据库相关
     _pDBProcess = new CDbDataProcess(this);
-    _pDBProcess->setDbInfo("127.0.0.1",1433,"sa","12345","QTDSN",E_DB_SQLSERV);
+    _pDBProcess->setDbInfo("127.0.0.1",1433,"sa","123456","QTDSN",E_DB_SQLSERV);
 
     if(!_pDBProcess->connectDB())
     {
@@ -156,19 +155,8 @@ void MainWindow::InitDevCtrl()
             {
                 foreach (tDevItem devItem, devInfo.devItemlist)
                 {
-                    // 创建能量计控制实例（你已有的代码）
-                    QPlatformEnergyDevCtrl* platformEnergyDevCtrl = new QPlatformEnergyDevCtrl(devItem.sDevIPAddress, devItem.nPort);
-
-                    // —— 新增：启用 S-Link 适配器（如果 devItem.sDevIPAddress 存放串口名或设备地址）
-                    // 若你使用串口名（如 "COM3" 或 "/dev/ttyUSB0"），把 devItem.sDevIPAddress 改为串口名；若使用 IP/port，可传 "IP:port" 或根据 adapter 实现改传参数
-                    bool okSlink = platformEnergyDevCtrl->setUseSLink(true, devItem.sDevIPAddress, 921600);
-                    if (!okSlink) {
-                        // 可选择记录日志或通知 UI
-                        qDebug() << "Failed to enable S-Link adapter for device index" << devItem.nIndex << "addr" << devItem.sDevIPAddress;
-                    }
-
-                    // 然后注册设备（你原来的注册代码）
-                    m_pDevCtrlManager->registerDevInfo(devInfo.devType, devItem.nIndex, bindRunTask(QPlatformEnergyDevCtrl, platformEnergyDevCtrl));
+                    QPlatformEnergyDevCtrl* platformEnergyDevCtrl = new QPlatformEnergyDevCtrl(devItem.sDevIPAddress,devItem.nPort);
+                    m_pDevCtrlManager->registerDevInfo(devInfo.devType,devItem.nIndex,bindRunTask(QPlatformEnergyDevCtrl,platformEnergyDevCtrl));
                 }
             }
             break;
@@ -196,15 +184,6 @@ void MainWindow::InitDevCtrl()
                 {
                     QPlatformShutterCtrl* platformShutterCtrl = new QPlatformShutterCtrl(devItem.sDevIPAddress,devItem.nPort,devItem.sDevName);
                     m_pDevCtrlManager->registerDevInfo(devInfo.devType,devItem.nIndex,bindRunTask(QPlatformShutterCtrl,platformShutterCtrl));
-                    ShutterIpcBackend* ipcBackend = new ShutterIpcBackend(this);
-                    ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "/shutter_helper.exe"); // 或完整路径
-                    ipcBackend->setLogFile(QCoreApplication::applicationDirPath() + "/shutter_client.log");
-
-                    // 注入到设备对象
-                    platformShutterCtrl->setBackend(ipcBackend);
-                    // 连接设备并设置 sessionId（moduleIndex/deviceIndex 根据你实际设备配置修改）
-                    int sid = ipcBackend->connectDevice(0, 0, 3000); // 示例 index，替换为实际值
-                    if (sid > 0)  platformShutterCtrl->setSessionId(sid);
                 }
             }
             break;
@@ -352,18 +331,6 @@ void MainWindow::InitDevCtrlWidget()
                 {
                     l_shutterctrllist.push_back((QShutterDevCtrl*)m_pDevCtrlManager->getDevCtrl(M_DEV_SHUTTER,devItem.nIndex));
                 }
-                ShutterIpcBackend* ipcBackend = new ShutterIpcBackend(this);
-                // helper 可执行路径，按你实际部署调整
-                ipcBackend->setHelperPath(QCoreApplication::applicationDirPath() + "C:\\Users\\Administrator\\Documents\\x86x64\\x86\\build-x86-Desktop_Qt_5_12_12_MinGW_32_bit-Debug\\x86.exe");
-                ipcBackend->setLogFile(QCoreApplication::applicationDirPath() + "/shutter_client.log");
-
-                // 注入到每个 shutter 控制对象，但不要在这里强行 connectDevice（让 UI 处理并选择索引）
-                for (QShutterDevCtrl* sctrl : l_shutterctrllist) {
-                    if (sctrl) {
-                        sctrl->setBackend(ipcBackend);
-                        // 不自动 connect，这样 UI 可以根据 list_devices 的 moduleIndex0/deviceIndex0 让用户选择
-                    }
-                }
                 QShutterCtrlWidget* pShutterCtrlWidget = new QShutterCtrlWidget(l_shutterctrllist);//光闸
                 //pShutterCtrlWidget->m_sDevTypeName = devInfo.sdevTypeName;
                 pShutterCtrlWidget->setWindowTitle(devInfo.sdevTypeName);
@@ -414,10 +381,7 @@ void MainWindow::InitUI()
     _pMeasurePreWidget = new MeasurePreReadyWidget(m_pDevCtrlManager,_pDBProcess,&_pPlatformConfig->m_tPlatformConfig,_pPlatformDevConfig,this);;
 
     _pDevConfigWidget = new QDevConfigWidget(_pPlatformDevConfig,this);
-    // 创建 光束分析仪 控件并加入到测量设备列表，以便 _pNavWidget->addItemWidget 时显示
-    _pBeamAnalyzerWidget = new BeamAnalyzerWidget(this);
-    _pBeamAnalyzerWidget->setWindowTitle(tr("光束分析仪"));
-    m_measureDevCtrlWidgetList.push_back(_pBeamAnalyzerWidget);
+
 
     //添加导航栏信息 以及对应的组件信息
     int nGroupID = _pNavWidget->addGroup("流程控制",":png/dev.png");//添加分组
@@ -567,7 +531,7 @@ void MainWindow::releaseDevCtrl()//释放所有的控制类
             {
                 foreach (tDevItem devItem, devInfo.devItemlist)
                 {
-                    QPlatformShutterCtrl* platformShutterCtrl = static_cast<QPlatformShutterCtrl*> (m_pDevCtrlManager->getDevCtrl(devInfo.devType, devItem.nIndex));
+                    QPlatformShutterCtrl* platformShutterCtrl = static_cast<QPlatformShutterCtrl*> (m_pDevCtrlManager->getDevCtrl(devInfo.devType,devItem.nIndex));
                     delete platformShutterCtrl;
                     platformShutterCtrl = nullptr;
                 }

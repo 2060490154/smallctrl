@@ -25,7 +25,7 @@
 #include "mulitctrlwidget.h"
 #include "motorctrlwidget.h"
 #include "energyadjdevwidget.h"
-
+#include "beamproctrlwidget.h"
 #include "defectMeasurewidget.h"
 #include "lightparamwidget.h"
 #include "offlinedatawidget.h"
@@ -37,9 +37,8 @@
 #include "dbdataprocess.h"
 
 #include "devconfig.h"
-#include "ishutterbackend.h"
+
 #include "platformconfig.h"
-#include "devctrlwidget/beamanalyzerwidget/beamanalyzerwidget.h"
 using namespace std;
 
 
@@ -91,7 +90,7 @@ private:
     QDevConfigWidget* _pDevConfigWidget;//设备信息维护界面
 
 
-    BeamAnalyzerWidget* _pBeamAnalyzerWidget; // 光束分析仪 控件指针
+
 
     MeasurePreReadyWidget* _pMeasurePreWidget;//测试准备界面
     DefectMeasureWidget* _pDefectMeasureWidget;//流程界面

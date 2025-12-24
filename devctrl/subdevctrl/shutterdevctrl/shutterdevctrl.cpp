@@ -10,7 +10,6 @@
 **
 ****************************************************************************/
 #include "shutterdevctrl.h"
-#include  "shutteripcbackend.h"
 #if _MSC_VER >=1600
 #pragma execution_character_set("utf-8")
 
@@ -47,60 +46,7 @@ QShutterDevCtrl::~QShutterDevCtrl()
 {
     SetDevStatus(false);//保护性关闭
 }
-// 替换或插入以下函数体（确保函数签名与原文件一致）
-bool QShutterDevCtrl::SetDevStatus(bool bOpen)
-{
-    if (!m_backend) return false;
-    if (m_sessionId <= 0) return false;
-    const int channel = 1;
-    // use longer timeout to avoid client-side retry storms
-    QJsonObject r = bOpen ? m_backend->openShutter(m_sessionId, channel, 5000)
-        : m_backend->closeShutter(m_sessionId, channel, 5000);
 
-    if (r.isEmpty()) {
-        qWarning() << "SetDevStatus: helper returned empty (timeout)";
-        // do NOT immediately resend repeatedly; instead try a single read to check device state
-        QJsonObject q = m_backend->readParam(m_sessionId, "status", 0, 3000);
-        if (!q.isEmpty() && q.value("status").toString() == "ok") {
-            int v = q.value("payload").toObject().value("value").toInt(-1);
-            if (v == 1) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_OPENED;
-            else if (v == 0) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_CLOSED;
-            return (bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_OPENED) ||
-                (!bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_CLOSED);
-        }
-        // show diagnostic to user: helper timed out, avoid blind retry
-        qWarning() << "SetDevStatus: no response and no status confirmation; not retrying automatically.";
-        return false;
-    }
-
-    // helper returned something; if error include attempts
-    if (r.value("status").toString() != "ok") {
-        qWarning() << "SetDevStatus: helper returned error:" << r.value("error").toString();
-        // Extract attempts if present to log for debugging
-        if (r.contains("payload") && r.value("payload").isObject()) {
-            QJsonObject pl = r.value("payload").toObject();
-            qDebug() << "Helper payload attempts:" << QJsonDocument(pl).toJson(QJsonDocument::Compact);
-        }
-        return false;
-    }
-
-    // status ok: parse payload.state/value
-    if (r.contains("payload") && r.value("payload").isObject()) {
-        QJsonObject pl = r.value("payload").toObject();
-        int st = pl.value("state").toInt(pl.value("value").toInt(-1));
-        if (st == 1) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_OPENED;
-        else if (st == 0) m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_CLOSED;
-        // if state unknown (-1), we treat as failure (do not optimistically accept)
-        if (st == -1) {
-            qWarning() << "SetDevStatus: helper returned ambiguous state (-1).";
-            return false;
-        }
-        return (bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_OPENED) ||
-            (!bOpen && m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_CLOSED);
-    }
-
-    return false;
-}
 /*******************************************************************
 **功能：获取状态
 **输入：
@@ -167,7 +113,50 @@ bool QShutterDevCtrl::checkDevStatus()
 **输出：
 **返回值：
 *******************************************************************/
+bool QShutterDevCtrl::SetDevStatus(bool bOPen)
+{
+     bool bRel = false;
+     tShutterCmd cmddata;
 
+
+     cmddata.startflag = 0xff;
+     cmddata.status = 0x00;
+     cmddata.cmdType = 0x11;//设置
+     cmddata.data[0] = 0x77;
+     cmddata.data[1] = 0x0B;
+     cmddata.endflag = 0xee;
+
+     if(bOPen == true)//打开
+     {
+        cmddata.status = 0x01;
+     }
+
+     m_tShutterDevInfo.nCurrentStatus = M_SHUTTER_STATUS_NONE;//清除当前状态
+
+     m_pUdpSocket->writeDatagram((char*)&cmddata,6,m_tShutterDevInfo.tHostAddress,_nPort);
+
+     //延时等待是否连接成功
+     QTime dieTime = QTime::currentTime();
+     dieTime.start();
+     while( dieTime.elapsed() < 1000 )
+     {
+         QCoreApplication::processEvents();
+
+         if(bOPen == true &&  m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_OPENED)
+         {
+             bRel = true;
+             break;
+         }
+
+         if(bOPen == false &&  m_tShutterDevInfo.nCurrentStatus == M_SHUTTER_STATUS_CLOSED)
+         {
+             bRel = true;
+             break;
+         }
+     }
+
+     return bRel;
+}
 
 /*******************************************************************
 **功能：

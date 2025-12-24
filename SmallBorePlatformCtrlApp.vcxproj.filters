@@ -251,21 +251,6 @@
     <ClCompile Include="workflowwidget\workflowwidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="devctrlwidget\beamanalyzerwidget\beamanalyzerwidget.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="devctrl\subdevctrl\energydevctrl\slinkcontroller.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="devctrl\subdevctrl\energydevctrl\energy_slink_adapter.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="devctrl\subdevctrl\motordevctrl\LTDMC.h">
@@ -724,25 +709,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\SmallBorePlatformCtrlApp_resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcclient.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\shutteripcbackend.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="devctrl\subdevctrl\shutterdevctrl\ishutterbackend.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="devctrlwidget\beamanalyzerwidget\beamanalyzerwidget.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="devctrl\subdevctrl\energydevctrl\energy_slink_adapter.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
-    <QtMoc Include="devctrl\subdevctrl\energydevctrl\slinkcontroller.h">
-      <Filter>Generated Files</Filter>
-    </QtMoc>
   </ItemGroup>
 </Project>

@@ -15,10 +15,8 @@ include (./energydevctrlwidget/energydevctrlwidget.pri)
 INCLUDEPATH +=$$PWD motorctrlwidget
 include (./motorctrlwidget/motorctrlwidget.pri)
 
+INCLUDEPATH +=$$PWD beamproctrlwidget
+include (./beamproctrlwidget/beamproctrlwidget.pri)
+
 INCLUDEPATH +=$$PWD energyadjdevctrlwidget
 include (./energyadjdevctrlwidget/energyadjdevctrlwidget.pri)
-
-
-# 新增 光束分析仪 控件模块
-INCLUDEPATH += $$PWD beamanalyzerwidget
-include (./beamanalyzerwidget/beamanalyzerwidget.pri)
